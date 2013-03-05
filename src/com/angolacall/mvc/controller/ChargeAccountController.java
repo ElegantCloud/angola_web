@@ -85,7 +85,7 @@ public class ChargeAccountController {
 	 */
 	@RequestMapping(value="/chongzhi", method=RequestMethod.POST)
 	public ModelAndView chongzhiPost(HttpServletResponse response,
-		@RequestParam(value = "countryCode", required=false, defaultValue="") String countryCode,
+		@RequestParam(value = "countryCode", required=false, defaultValue="0086") String countryCode,
 		@RequestParam(value = "accountName", required=false, defaultValue="") String accountName,
 		@RequestParam(value = "depositeType") String depositeType,
 		@RequestParam(value = "depositeId", required=false) String depositeId,
