@@ -27,7 +27,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset={dede:global.cfg_soft_lang/}" />
 <title>充值中心</title>
-<link href="http://www.uu-talk.com/templets/uu-talk/style/uutalk.css" rel="stylesheet" media="screen" type="text/css" />
+<link href="http://www.uu-talk.com/templets/uutalk/style/uutalk.css" rel="stylesheet" media="screen" type="text/css" />
 </head>
 <body>
 
