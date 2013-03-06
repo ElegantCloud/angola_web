@@ -6,5 +6,9 @@ public enum ChargeType {
 	invitereg,
 	chargecontribute,
 	chargegift,
-	sysgift
+	sysgift,
+	szx_card,
+	unicom_card,
+	telecom_card,
+	yeepay
 }

@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-<title>环宇通支付宝充值结果</title>
+<title>环宇通充值结果</title>
 <jsp:include page="../common/_head.jsp"></jsp:include>
 </head>
 <body>
@@ -37,8 +37,8 @@
 				}
 			%>
 			<div class="link_region">
-				<a href="http://www.00244dh.com">返回首页</a>
-				<a href="http://www.00244dh.com/uutalk/chongzhi">继续充值</a>
+				<a href="http://www.uu-talk.com">返回首页</a>
+				<a href="http://www.uu-talk.com/uutalk/chongzhi">继续充值</a>
 			</div>
 			</div>
 		</div>

@@ -15,7 +15,7 @@
 		depositeType = "alipay";
 	}
 	
-	String alipayError = (String)request.getAttribute("alipayError");
+	String payError = (String)request.getAttribute("payError");
 	String uutalkError = (String)request.getAttribute("uutalkError");
 	VOSHttpResponse vosHttpError = (VOSHttpResponse)request.getAttribute("vosHttpError");
 	VOSHttpResponse vosError = (VOSHttpResponse)request.getAttribute("vosError");
@@ -72,15 +72,15 @@
 				<input type="radio" name="depositeType" value="alipay"
 					<% if("alipay".equals(depositeType)){ %>checked="checked"<% } %> /><span>支付宝充值</span>
 				<input type="radio" name="depositeType" value="szx" 
-					<% if("szx".equals(depositeType)){ %>checked="checked"<% } %>/><span>神州行</span>		
+					<% if("szx".equals(depositeType)){ %>checked="checked"<% } %>/><span>移动卡充值</span>		
 				<input type="radio" name="depositeType" value="unicom" 
-					<% if("unicom".equals(depositeType)){ %>checked="checked"<% } %>/><span>联通卡</span>
+					<% if("unicom".equals(depositeType)){ %>checked="checked"<% } %>/><span>联通卡充值</span>
 				<input type="radio" name="depositeType" value="telecom" 
-					<% if("telecom".equals(depositeType)){ %>checked="checked"<% } %>/><span>电信卡</span>
+					<% if("telecom".equals(depositeType)){ %>checked="checked"<% } %>/><span>电信卡充值</span>
 			</div>
 			<div id="divAlipayPanel">
-				<%if(null!=alipayError) { %>
-				<span class="red"><%=alipayError %></span>
+				<%if(null!=payError) { %>
+				<span class="red"><%=payError %></span>
 				<% } %>
 				<h3>充值大优惠</h3>
 				<%

@@ -15,7 +15,7 @@
 				<a class="btn btn-navbar" data-toggle="collapse"
 					data-target=".nav-collapse"> <span class="icon-bar"></span> <span
 					class="icon-bar"></span> <span class="icon-bar"></span>
-				</a> <a class="brand" href="http://www.00244dh.com/">环宇通</a>
+				</a> <a class="brand" href="http://www.uu-talk.com/">环宇通</a>
 			</div>
 		</div>
 	</div>
@@ -58,7 +58,7 @@
     		<div id="reset_ok_info" class="hidden">
     			<h3>恭喜你，密码重置成功！请在环宇通客户端用新密码重新登录！</h3>
     			<div class="link_region">
-					<a href="http://www.00244dh.com">返回首页</a>(环宇通)
+					<a href="http://www.uu-talk.com">返回首页</a>(环宇通)
 				</div>
     		</div>
     		<%
@@ -66,7 +66,7 @@
 			%>
 				<p>对不起，此链接已经失效！</p>	
 				<div class="link_region">
-					<a href="http://www.00244dh.com">返回首页</a>(环宇通)
+					<a href="http://www.uu-talk.com">返回首页</a>(环宇通)
 				</div>
 			<%	
 				}

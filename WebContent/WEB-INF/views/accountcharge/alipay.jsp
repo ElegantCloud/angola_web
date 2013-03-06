@@ -34,8 +34,8 @@
 <title>支付宝即时到帐接口</title>
 </head>
 <%
-	String accountName = request.getParameter("accountName");
-	String countryCode = request.getParameter("countryCode");
+	String accountName = (String) request.getAttribute("accountName");
+	String countryCode = (String) request.getAttribute("countryCode");
 	//请与贵网站订单系统中的唯一订单号匹配
 	String out_trade_no = ChargeUtil.getOrderNumber(ChargeType.alipay.name(), countryCode, accountName);
 	//订单名称，显示在支付宝收银台里的“商品名称”里，显示在支付宝的交易管理的“商品名称”的列表里。

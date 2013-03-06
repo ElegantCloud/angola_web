@@ -167,4 +167,10 @@ public class TextUtility {
 		return input;
 	}
 	
+	public static String trimNull(String text) {
+		if (text == null) {
+			return "";
+		}
+		return text;
+	}
 }

@@ -58,6 +58,9 @@
 		<property name="yeepayQueryRefundReqURL">
 		    <value>${queryRefundReqURL}</value>
 		</property>
+		<property name="yeepayNotifyReturnUrl">
+		    <value>${yeepay_notify_url}</value>
+		</property>
 	</bean>
 	
 	<bean id="sms_client" class="com.richitec.sms.client.SMSClient">

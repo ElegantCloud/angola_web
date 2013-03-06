@@ -24,6 +24,7 @@ public class Configuration {
 	private String yeepayOnlinePaymentReqURL;
 	private String yeepayCommonReqURL;
 	private String yeepayQueryRefundReqURL;
+	private String yeepayNotifyReturnUrl;
 	
 	public String getSuite0Id() {
 		return this.suite0Id;
@@ -159,6 +160,14 @@ public class Configuration {
 
 	public void setYeepayQueryRefundReqURL(String yeepayQueryRefundReqURL) {
 		this.yeepayQueryRefundReqURL = yeepayQueryRefundReqURL;
+	}
+
+	public String getYeepayNotifyReturnUrl() {
+		return yeepayNotifyReturnUrl;
+	}
+
+	public void setYeepayNotifyReturnUrl(String yeepayNotifyReturnUrl) {
+		this.yeepayNotifyReturnUrl = yeepayNotifyReturnUrl;
 	}
 
 }

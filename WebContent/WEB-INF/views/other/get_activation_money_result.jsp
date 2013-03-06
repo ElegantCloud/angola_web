@@ -50,7 +50,7 @@
 				}
 			%>
 			<div class="link_region">
-				<a href="http://www.00244dh.com">返回首页</a>(环宇通)
+				<a href="http://www.uu-talk.com">返回首页</a>(环宇通)
 			</div>
 			</div>
 		</div>
