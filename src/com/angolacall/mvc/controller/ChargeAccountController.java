@@ -89,6 +89,7 @@ public class ChargeAccountController {
 		@RequestParam(value = "accountName", required=false, defaultValue="") String accountName,
 		@RequestParam(value = "depositeType") String depositeType,
 		@RequestParam(value = "depositeId", required=false) String depositeId,
+		@RequestParam(value = "yeepayTunnel", defaultValue = "") String yeepayTunnel,
 		@RequestParam(value = "cardNumber", required=false) String cardNumber,
 		@RequestParam(value = "cardPwd", required=false) String cardPwd) throws SQLException {
 		
@@ -143,6 +144,17 @@ public class ChargeAccountController {
 				mv.addObject("vosResponse", vosResp);
 				return mv;
 			}
+		}
+		
+		if ("yeepay".equals(depositeType)) {
+			if (null == depositeId || depositeId.isEmpty()){
+				mv.setViewName("chongzhi");
+				mv.addObject("yeepayError", "请选择充值金额");
+				return mv;
+			} 
+			
+			mv.setViewName("accountcharge/yeepay_reqpay");
+			return mv;
 		}
 		
 		mv.setViewName("chongzhi");
@@ -321,19 +333,7 @@ public class ChargeAccountController {
 	String aliPayComplete(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		log.info("****** alipay complete ******");
-		// Map<String, String> params = new HashMap<String, String>();
-		// Map requestParams = request.getParameterMap();
-		// for (Iterator iter = requestParams.keySet().iterator();
-		// iter.hasNext();) {
-		// String name = (String) iter.next();
-		// String[] values = (String[]) requestParams.get(name);
-		// String valueStr = "";
-		// for (int i = 0; i < values.length; i++) {
-		// valueStr = (i == values.length - 1) ? valueStr + values[i]
-		// : valueStr + values[i] + ",";
-		// }
-		// params.put(name, valueStr);
-		// }
+		
 		Map<String, String> params = getParameterMap(request);
 
 		String order_no = request.getParameter("out_trade_no"); // 获取订单号
@@ -371,19 +371,7 @@ public class ChargeAccountController {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("accountcharge/receive");
 		// 获取支付宝GET过来反馈信息
-		// Map<String, String> params = new HashMap<String, String>();
-		// Map requestParams = request.getParameterMap();
-		// for (Iterator iter = requestParams.keySet().iterator();
-		// iter.hasNext();) {
-		// String name = (String) iter.next();
-		// String[] values = (String[]) requestParams.get(name);
-		// String valueStr = "";
-		// for (int i = 0; i < values.length; i++) {
-		// valueStr = (i == values.length - 1) ? valueStr + values[i]
-		// : valueStr + values[i] + ",";
-		// }
-		// params.put(name, valueStr);
-		// }
+		
 		Map<String, String> params = getParameterMap(request);
 
 		String order_no = request.getParameter("out_trade_no"); // 获取订单号
@@ -583,4 +571,5 @@ public class ChargeAccountController {
 		}
 	}
 
+	
 }

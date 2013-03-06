@@ -19,7 +19,12 @@ public class Configuration {
 	private String callbackCallerPrefix;
 	private String appPrefix;
 	private String suitePrefix;
-
+	private String yeepayMerchantId;
+	private String yeepayKey;
+	private String yeepayOnlinePaymentReqURL;
+	private String yeepayCommonReqURL;
+	private String yeepayQueryRefundReqURL;
+	
 	public String getSuite0Id() {
 		return this.suite0Id;
 	}
@@ -114,6 +119,46 @@ public class Configuration {
 
 	public void setSuitePrefix(String suitePrefix) {
 		this.suitePrefix = suitePrefix;
+	}
+
+	public String getYeepayMerchantId() {
+		return yeepayMerchantId;
+	}
+
+	public void setYeepayMerchantId(String yeepayMerchantId) {
+		this.yeepayMerchantId = yeepayMerchantId;
+	}
+
+	public String getYeepayKey() {
+		return yeepayKey;
+	}
+
+	public void setYeepayKey(String yeepayKey) {
+		this.yeepayKey = yeepayKey;
+	}
+
+	public String getYeepayOnlinePaymentReqURL() {
+		return yeepayOnlinePaymentReqURL;
+	}
+
+	public void setYeepayOnlinePaymentReqURL(String yeepayOnlinePaymentReqURL) {
+		this.yeepayOnlinePaymentReqURL = yeepayOnlinePaymentReqURL;
+	}
+
+	public String getYeepayCommonReqURL() {
+		return yeepayCommonReqURL;
+	}
+
+	public void setYeepayCommonReqURL(String yeepayCommonReqURL) {
+		this.yeepayCommonReqURL = yeepayCommonReqURL;
+	}
+
+	public String getYeepayQueryRefundReqURL() {
+		return yeepayQueryRefundReqURL;
+	}
+
+	public void setYeepayQueryRefundReqURL(String yeepayQueryRefundReqURL) {
+		this.yeepayQueryRefundReqURL = yeepayQueryRefundReqURL;
 	}
 
 }

@@ -10,6 +10,7 @@
 		<property name="locations">
 			<list>
 				<value>/WEB-INF/config/Configuration.properties</value>
+				<value>/WEB-INF/config/merchantInfo.properties</value>
 			</list>
 		</property>
 	</bean>	
@@ -41,6 +42,21 @@
 		</property>
 		<property name="suitePrefix">
 		    <value>${suite_prefix}</value>
+		</property>
+		<property name="yeepayMerchantId">
+		    <value>${p1_MerId}</value>
+		</property>
+		<property name="yeepayKey">
+		    <value>${keyValue}</value>
+		</property>
+		<property name="yeepayOnlinePaymentReqURL">
+		    <value>${onlinePaymentReqURL}</value>
+		</property>
+		<property name="yeepayCommonReqURL">
+		    <value>${yeepayCommonReqURL}</value>
+		</property>
+		<property name="yeepayQueryRefundReqURL">
+		    <value>${queryRefundReqURL}</value>
 		</property>
 	</bean>
 	

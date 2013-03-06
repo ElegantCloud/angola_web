@@ -17,8 +17,8 @@ public class CountryManager {
 	}
 
 	private void init() {
-		countryMap.put("0086", "cn");
-		countryMap.put("00244", "ao");
+		countryMap.put("86", "cn");
+		countryMap.put("244", "ao");
 	}
 
 	public synchronized static CountryManager getInstance() {
