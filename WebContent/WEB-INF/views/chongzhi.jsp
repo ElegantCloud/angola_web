@@ -55,7 +55,7 @@
 		<a class="chongzhi500" href=""></a>
 		<a class="download-btn" href="http://www.uu-talk.com/appvcenter/downloadapp/4/android"></a>
 	</div>
-	<form id="depositeForm" action="chongzhi" method="post">
+	<form id="depositeForm" action="chongzhi" method="post" target="_blank">
 		<div id="divAccountInfo" class="chongzhi-form-field">
 			<label>输入账户名（注册手机号）</label>
 			<input id="iptAccountName" name="accountName" type="text" 
