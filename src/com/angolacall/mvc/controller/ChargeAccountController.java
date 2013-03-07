@@ -624,6 +624,7 @@ public class ChargeAccountController {
 		String r4_Cur = TextUtility.trimNull(request.getParameter("r4_Cur"));// 交易币种
 		String r5_Pid = new String(TextUtility.trimNull(
 				request.getParameter("r5_Pid")).getBytes("iso-8859-1"), "gbk");// 商品名称
+		
 		String r6_Order = TextUtility
 				.trimNull(request.getParameter("r6_Order"));// 商户订单号
 		String r7_Uid = TextUtility.trimNull(request.getParameter("r7_Uid"));// 易宝支付会员ID
@@ -634,7 +635,17 @@ public class ChargeAccountController {
 		String hmac = TextUtility.trimNull(request.getParameter("hmac"));// 签名数据
 
 		log.info("order id: " + r6_Order + "charge money: " + r3_Amt);
-
+		log.info("hmac: " + hmac);
+		log.info("p1_MerId: " + p1_MerId);
+		log.info("r0_cmd: " + r0_Cmd);
+		log.info("r1_code: " + r1_Code);
+		log.info("r2_trxId: " + r2_TrxId);
+		log.info("r4_Cur: " + r4_Cur);
+		log.info("r5_pid: " + r5_Pid);
+		log.info("r7_Uid: " + r7_Uid);
+		log.info("r8_mp: " + r8_MP);
+		log.info("r9_BType: " + r9_BType);
+		
 		boolean isOK = false;
 		// 校验返回数据包
 		isOK = PaymentForOnlineService.verifyCallback(hmac, p1_MerId, r0_Cmd,

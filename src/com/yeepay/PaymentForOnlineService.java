@@ -335,7 +335,7 @@ public class PaymentForOnlineService {
 		sValue.append(r9_BType);
 		String sNewString = null;
 		sNewString = DigestUtil.hmacSign(sValue.toString(), keyValue);
-
+		log.info("new hmac sign: " + sNewString);
 		if (hmac.equals(sNewString)) {
 			return (true);
 		}

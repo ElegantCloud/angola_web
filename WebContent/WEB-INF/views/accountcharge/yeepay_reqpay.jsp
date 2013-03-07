@@ -42,7 +42,7 @@
 	String    p2_Order           	= ChargeUtil.getOrderNumber(chargeType.name(), countryCode, accountName);           					// 商户订单号
 	String	  p3_Amt           	 	= String.format("%.2f", chargeMoney.floatValue());      	   							// 支付金额
 	String	  p4_Cur    		 			= formatString("CNY");	   		   							// 交易币种
-	String	  p5_Pid 		     			= "环宇通账户充值";	       	   						// 商品名称
+	String	  p5_Pid 		     			= "UU-Talk Account Charge";	       	   						// 商品名称
 	String	  p6_Pcat  		     		= "";	       	   					// 商品种类
 	String 	  p7_Pdesc   		 			= "";		   								// 商品描述
 	String 	  p8_Url 	         		= formatString(cfg.getYeepayNotifyReturnUrl()); 		       						// 商户接收支付成功数据的地址
