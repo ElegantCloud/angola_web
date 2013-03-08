@@ -54,7 +54,7 @@ public class ChargeUtil {
 		}
 		String status = (String) chargeInfo.get("status");
 		if (ChargeStatus.success.name().equals(status)) {
-			return countryCode + userName;
+			return userName;
 		}
 
 		Float chargeMoney = (Float) chargeInfo.get("money");
@@ -85,7 +85,7 @@ public class ChargeUtil {
 			checkAndDepositGiftMoneyToCharger(chargeMoneyCfgId, countryCode,
 					userName);
 
-			return countryCode + userName;
+			return userName;
 		} else {
 			log.info("vos deposite fail");
 			chargeDao.updateChargeRecord(chargeId, ChargeStatus.vos_fail);
