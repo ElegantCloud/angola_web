@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<partner>
+	<!--MD5-->
+	<md5SecId>MD5</md5SecId>
+	<md5SignAlgo>MD5</md5SignAlgo>
+	<!--请从自助签约平台获取MD5安全校验码-->
+	<md5Key>9uwv1tfdpd8010g290sz4m5bj03kh6q8</md5Key>
+	<serverUrl>http://mapi.alipay.com</serverUrl>
+	<serverPort>80</serverPort>
+</partner>

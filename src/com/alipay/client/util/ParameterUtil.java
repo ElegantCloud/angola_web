@@ -32,16 +32,17 @@ public class ParameterUtil {
         List<String> keys = new ArrayList<String>(params.keySet());
         Collections.sort(keys);
 
-        for (int i = 0; i < keys.size(); i++) {
+        for (int i = 0, j = keys.size(); i < j; i++) {
             String key = (String) keys.get(i);
-            if ("sign".equals(key)) {
+
+            if ("sign".equals(key) || "sign_type".equals(key)) {
                 continue;
             }
             String value = (String) params.get(key);
-            if (value != null) {
+            if (value != null && !"".equals(value)) {
                 content.append((i == 0 ? "" : "&") + key + "=" + value);
             } else {
-                content.append((i == 0 ? "" : "&") + key + "=");
+                //content.append((i == 0 ? "" : "&") + key + "=");
             }
 
         }
@@ -60,14 +61,13 @@ public class ParameterUtil {
         boolean isFirst = true;
         for (String key : params.keySet()) {
             String value = params.get(key);
-            if (isFirst) {
-                sb.append(key + "=" + URLEncoder.encode(value, "utf-8"));
-                isFirst = false;
-            } else {
-                if (value != null) {
-                    sb.append("&" + key + "=" + URLEncoder.encode(value, "utf-8"));
+            //System.out.println(key+":"+value);
+            if (value != null && !"".equals(value)) {
+                if (isFirst) {
+                    sb.append(key + "=" + URLEncoder.encode(value, "utf-8"));
+                    isFirst = false;
                 } else {
-                    sb.append("&" + key + "=");
+                    sb.append("&" + key + "=" + URLEncoder.encode(value, "utf-8"));
                 }
             }
         }

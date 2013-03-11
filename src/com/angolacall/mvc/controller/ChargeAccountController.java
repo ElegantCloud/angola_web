@@ -2,7 +2,6 @@ package com.angolacall.mvc.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -26,8 +25,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alipay.client.base.ClientConfig;
 import com.alipay.client.base.PartnerConfig;
 import com.alipay.client.security.RSASignature;
+import com.alipay.client.security.SecurityManagerImpl;
+import com.alipay.client.util.ParameterUtil;
+import com.alipay.config.AlipayConfig;
+import com.alipay.services.AlipayService;
 import com.alipay.util.AlipayNotify;
 import com.angolacall.constants.ChargeStatus;
 import com.angolacall.constants.ChargeType;
@@ -54,13 +58,19 @@ public class ChargeAccountController {
 	private ChargeDAO chargeDao;
 	private UserDAO userDao;
 	private SMSClient smsClient;
+	private ClientConfig clientConfig;
 
+	// 安全管理类
+	private com.alipay.client.security.SecurityManager securityManager;
 	@PostConstruct
 	public void init() {
 		vosClient = ContextLoader.getVOSClient();
 		chargeDao = ContextLoader.getChargeDAO();
 		userDao = ContextLoader.getUserDAO();
 		smsClient = ContextLoader.getSMSClient();
+		clientConfig = new ClientConfig();
+		securityManager = new SecurityManagerImpl();
+	
 	}
 
 	@RequestMapping(value = "/deposite", method = RequestMethod.GET)
@@ -71,6 +81,90 @@ public class ChargeAccountController {
 		view.addObject("charge_money_list", ContextLoader
 				.getChargeMoneyConfigDao().getChargeMoneyList());
 		return view;
+	}
+
+	@RequestMapping(value = "/alipayWapCharge")
+	public ModelAndView alipayWapCharge(
+			@RequestParam(value = "username", defaultValue = "") String userName) {
+		ModelAndView view = new ModelAndView("chongzhi_alipay_wap");
+		view.addObject("username", userName);
+		view.addObject("charge_money_list", ContextLoader
+				.getChargeMoneyConfigDao().getChargeMoneyList());
+		return view;
+	}
+
+	
+	
+	@RequestMapping(value = "/alipayWapPost", method = RequestMethod.POST)
+	public void alipayWapPost(
+			HttpServletResponse response,
+			@RequestParam(value = "countryCode", defaultValue="86") String countryCode,
+			@RequestParam(value = "username") String userName,
+			@RequestParam(value = "depositeId", required = false) String depositeId) throws IOException {
+		Map<String, Object> chargeMoneyRecord = ContextLoader.getChargeMoneyConfigDao().getChargeMoneyRecord(Integer.parseInt(depositeId));
+		Float chargeMoney = (Float) chargeMoneyRecord.get("charge_money");
+		
+		Map<String, String> requestParams = new HashMap<String, String>();
+
+        //以下是基本参数
+        //参数编码字符集
+        String inputCharset = ClientConfig.input_charset;
+        requestParams.put("_input_charset", inputCharset);
+        //接口名称
+        String service = "create_forex_trade_wap";
+        requestParams.put("service", service);
+        //合作伙伴ID
+        String partner = AlipayConfig.partner;
+        requestParams.put("partner", partner);
+        //返回URL
+        String returnUrl = AlipayConfig.return_url;
+        requestParams.put("return_url", returnUrl);
+        //通知URL
+        String notifyUrl = AlipayConfig.notify_url;
+        requestParams.put("notify_url", notifyUrl);
+
+        //以下是业务参数
+        // 外部交易号
+        String outTradeNo = ChargeUtil.getOrderNumber(ChargeType.alipay.name(), countryCode, userName);
+        requestParams.put("out_trade_no", outTradeNo);
+        // 商品名称
+        String subject = "环宇通账户充值";
+        requestParams.put("subject", subject);
+        // 商品描述
+        String body = "环宇通网络电话账户充值";
+        requestParams.put("body", body);
+        // 商品人民币总价
+        String rmbFee = String.format("%.2f", chargeMoney.floatValue());
+        requestParams.put("rmb_fee", rmbFee);
+        // 外币币种
+        String currency = "RMB";
+        requestParams.put("currency", currency);
+        // 未完成支付，用户点击链接返回商户
+        String merchantUrl = ClientConfig.merchant_url;
+        requestParams.put("merchant_url", merchantUrl);
+
+        ContextLoader.getChargeDAO().addChargeRecord(outTradeNo, countryCode, userName, chargeMoney.doubleValue(), ChargeStatus.processing, depositeId);
+        
+        String signData = ParameterUtil.getSignData(requestParams);
+        String sign = "";
+        try {
+            sign = securityManager.sign(clientConfig.getMd5SignAlgo(), signData, clientConfig
+                .getMd5Key());
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
+        
+        requestParams.put("sign", sign);
+        requestParams.put("sign_type", clientConfig.getMd5SignAlgo());
+
+        String url = "";
+        try {
+        	 String redirectUrl = ClientConfig.server_url;
+        	 url = redirectUrl + ParameterUtil.mapToUrl(requestParams);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        response.sendRedirect(url);
 	}
 
 	/**
@@ -624,7 +718,7 @@ public class ChargeAccountController {
 		String r4_Cur = TextUtility.trimNull(request.getParameter("r4_Cur"));// 交易币种
 		String r5_Pid = new String(TextUtility.trimNull(
 				request.getParameter("r5_Pid")).getBytes("iso-8859-1"), "gbk");// 商品名称
-		
+
 		String r6_Order = TextUtility
 				.trimNull(request.getParameter("r6_Order"));// 商户订单号
 		String r7_Uid = TextUtility.trimNull(request.getParameter("r7_Uid"));// 易宝支付会员ID
@@ -645,7 +739,7 @@ public class ChargeAccountController {
 		log.info("r7_Uid: " + r7_Uid);
 		log.info("r8_mp: " + r8_MP);
 		log.info("r9_BType: " + r9_BType);
-		
+
 		boolean isOK = false;
 		// 校验返回数据包
 		isOK = PaymentForOnlineService.verifyCallback(hmac, p1_MerId, r0_Cmd,
