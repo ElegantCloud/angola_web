@@ -96,11 +96,20 @@ public class ChargeAccountController {
 	
 	
 	@RequestMapping(value = "/alipayWapPost", method = RequestMethod.POST)
-	public void alipayWapPost(
+	public ModelAndView alipayWapPost(
 			HttpServletResponse response,
 			@RequestParam(value = "countryCode", defaultValue="86") String countryCode,
 			@RequestParam(value = "username") String userName,
-			@RequestParam(value = "depositeId", required = false) String depositeId) throws IOException {
+			@RequestParam(value = "depositeId", required = false) String depositeId) throws IOException, SQLException {
+		ModelAndView view = new ModelAndView("chongzhi_alipay_wap");
+		boolean isExist = userDao.isExistsLoginName(countryCode, userName);
+		if (!isExist) {
+			view.addObject("charge_money_list", ContextLoader
+					.getChargeMoneyConfigDao().getChargeMoneyList());
+			view.addObject("AccountError", "NoUser");
+			return view;
+		}
+		
 		Map<String, Object> chargeMoneyRecord = ContextLoader.getChargeMoneyConfigDao().getChargeMoneyRecord(Integer.parseInt(depositeId));
 		Float chargeMoney = (Float) chargeMoneyRecord.get("charge_money");
 		
@@ -140,7 +149,7 @@ public class ChargeAccountController {
         String currency = "RMB";
         requestParams.put("currency", currency);
         // 未完成支付，用户点击链接返回商户
-        String merchantUrl = ClientConfig.merchant_url;
+        String merchantUrl = ClientConfig.merchant_url + "?username=" + userName;
         requestParams.put("merchant_url", merchantUrl);
 
         ContextLoader.getChargeDAO().addChargeRecord(outTradeNo, countryCode, userName, chargeMoney.doubleValue(), ChargeStatus.processing, depositeId);
@@ -165,6 +174,7 @@ public class ChargeAccountController {
             e.printStackTrace();
         }
         response.sendRedirect(url);
+        return view;
 	}
 
 	/**

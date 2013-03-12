@@ -14,6 +14,8 @@
 	<%
 		List<Map<String, Object>> chargeMoneyList = (List<Map<String, Object>>) request.getAttribute("charge_money_list");
 		String userName = (String) request.getAttribute("username"); 
+		
+		String accountError = (String) request.getAttribute("AccountError");
 	%>
 
     <div class="container">
@@ -23,11 +25,14 @@
 	    		<hr>
     		</div>
     		<div class="tabbable span6 offset3">
-	    		<form id="formAlipay" action="alipayWapPost" method="post" target="_blank">
-		    		<label>请输入要充值的账户名</label>
+	    		<form id="formAlipay" action="alipayWapPost" method="post" target="_self">
+		    		<label>您充值的账户为</label>
 		    		<input id="account_name_input" type="text" 
 		    		name="username"	pattern="\d{9}|\d{11}" maxlength="11"
-		    		value="<%=userName %>" />
+		    		value="<%=userName != null ? userName : "" %>" <%if (userName != null && !"".equals(userName)) {%> readonly="readonly" <% } %> />
+	    			<%if(null != accountError) { %>
+						<label class="text-error">账户不存在，请检查账户名是否正确</label>
+					<% } %>
 		    		
 					<label>请选择充值金额</label>
 					<ul class="unstyled">
