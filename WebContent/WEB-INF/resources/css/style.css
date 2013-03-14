@@ -76,3 +76,16 @@ footer span {
 #reg_gift_desc_ctrlgroup {
 	margin-top: 50px;
 }
+
+#formAlipayWap {
+	margin-top: 30px;
+}
+
+#formAlipayWap label {
+	font-size: 20px;
+}
+
+#formAlipayWap button {
+	font-size: 18px;
+	padding: 10px;
+}

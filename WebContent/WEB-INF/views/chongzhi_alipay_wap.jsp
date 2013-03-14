@@ -21,20 +21,15 @@
     <div class="container">
     	<div class="row">
     		<div class="span6 offset3">
-    			<h2>环宇通账户充值</h2>
-	    		<hr>
-    		</div>
-    		<div class="tabbable span6 offset3">
-	    		<form id="formAlipay" action="alipayWapPost" method="post" target="_self">
-		    		<label>您充值的账户为</label>
+	    		<form id="formAlipayWap" action="alipayWapPost" method="post" target="_self">
+		    		<h3>您充值的账户为</h3>
 		    		<input id="account_name_input" type="text" 
 		    		name="username"	pattern="\d{9}|\d{11}" maxlength="11"
 		    		value="<%=userName != null ? userName : "" %>" <%if (userName != null && !"".equals(userName)) {%> readonly="readonly" <% } %> />
 	    			<%if(null != accountError) { %>
 						<label class="text-error">账户不存在，请检查账户名是否正确</label>
 					<% } %>
-		    		
-					<label>请选择充值金额</label>
+					<h3>请选择充值金额</h3>
 					<ul class="unstyled">
 						<%
 							if (chargeMoneyList != null) {
@@ -46,8 +41,8 @@
 									%>
 									<li>
 										<p>
-											<input type="radio" name="depositeId" value="<%=id %>" <%if(!checked) {%>checked="checked"<% checked=true;} %>" />
-											<span>￥<%=chargeMoney.toString() + "&nbsp;--&nbsp;" + description%></span>
+											<input id="<%=id %>" class="pull-left" type="radio" name="depositeId" value="<%=id %>" <%if(!checked) {%>checked="checked"<% checked=true;} %>" />
+											<label for="<%=id%>">￥<%=chargeMoney.toString() + "&nbsp;--&nbsp;" + description%></label>
 										</p>
 									</li>
 									<%
