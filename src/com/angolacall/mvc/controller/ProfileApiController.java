@@ -24,10 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.alipay.client.base.PartnerConfig;
 import com.alipay.client.security.RSASignature;
 import com.angolacall.constants.ChargeStatus;
-import com.angolacall.constants.EmailStatus;
 import com.angolacall.constants.UUTalkConfigKeys;
-import com.angolacall.constants.UserAccountStatus;
-import com.angolacall.constants.UserConstants;
 import com.angolacall.framework.Configuration;
 import com.angolacall.framework.ContextLoader;
 import com.angolacall.mvc.admin.model.ChargeMoneyConfigDao;
@@ -35,13 +32,13 @@ import com.angolacall.mvc.admin.model.UUTalkConfigManager;
 import com.angolacall.web.user.UserBean;
 import com.richitec.ucenter.model.UserDAO;
 import com.richitec.util.CryptoUtil;
-import com.richitec.util.MyRC4;
 import com.richitec.util.MailSender;
-import com.richitec.util.RandomString;
+import com.richitec.util.MyRC4;
 import com.richitec.vos.client.OrderSuiteInfo;
 import com.richitec.vos.client.SuiteInfo;
 import com.richitec.vos.client.VOSClient;
 import com.richitec.vos.client.VOSHttpResponse;
+import com.yeepay.DigestUtil;
 
 @Controller
 @RequestMapping("/profile")
@@ -122,6 +119,23 @@ public class ProfileApiController {
 				chargeMoneyId);
 		response.getWriter().print(
 				RSASignature.sign(content, PartnerConfig.RSA_PRIVATE));
+	}
+
+	@RequestMapping("/yeepaySign")
+	public void yeepaySign(HttpServletResponse response,
+			@RequestParam(value = "charge_money_id") String chargeMoneyId,
+			@RequestParam String content,
+			@RequestParam(value = "order_num") String orderNum,
+			@RequestParam(value = "money") String money,
+			@RequestParam(value = "countryCode") String countryCode,
+			@RequestParam(value = "username") String userName) throws JSONException, IOException {
+		log.info("yeepaySign - content: " + content);
+		ContextLoader.getChargeDAO().addChargeRecord(orderNum, countryCode,
+				userName, Double.valueOf(money), ChargeStatus.processing,
+				chargeMoneyId);
+		JSONObject ret = new JSONObject();
+		ret.put("sign", DigestUtil.hmacSign(content, ContextLoader.getConfiguration().getYeepayKey()));
+		response.getWriter().print(ret.toString());
 	}
 
 	@RequestMapping("/getRegInviteLink")
@@ -231,20 +245,21 @@ public class ProfileApiController {
 			throws JSONException, IOException {
 		log.info("getSuites");
 		VOSClient vosClient = ContextLoader.getVOSClient();
-		List<OrderSuiteInfo> orderSuites = vosClient.getOrderSuites(userDao.genVosAccountName(countryCode, userName));
+		List<OrderSuiteInfo> orderSuites = vosClient.getOrderSuites(userDao
+				.genVosAccountName(countryCode, userName));
 		List<SuiteInfo> allSuites = vosClient.getAllSuites();
 
 		Configuration config = ContextLoader.getConfiguration();
 		String suitePrefix = config.getSuitePrefix();
-		
+
 		JSONObject ret = new JSONObject();
 		if (orderSuites != null) {
 			JSONArray orderSuiteArray = new JSONArray();
 			for (OrderSuiteInfo osi : orderSuites) {
-//				if ("suite0".equals(osi.getSuiteName())) {
-//					continue;
-//				}
-//				orderSuiteArray.put(osi.toJSONObject());
+				// if ("suite0".equals(osi.getSuiteName())) {
+				// continue;
+				// }
+				// orderSuiteArray.put(osi.toJSONObject());
 				if (osi.getSuiteName().startsWith(suitePrefix)) {
 					orderSuiteArray.put(osi.toJSONObject());
 				}
@@ -255,25 +270,25 @@ public class ProfileApiController {
 		if (allSuites != null) {
 			JSONArray allSuitesArray = new JSONArray();
 			for (SuiteInfo si : allSuites) {
-//				if ("suite0".equals(si.getSuiteName())) {
-//					continue;
-//				}
-//
-//				// boolean isOrdered = false;
-//				// for (OrderSuiteInfo osi : orderSuites) {
-//				// if (si.getSuiteId().equals(osi.getSuiteId())) {
-//				// isOrdered = true;
-//				// break;
-//				// }
-//				// }
-//				//
-//				// if (!isOrdered) {
-//				allSuitesArray.put(si.toJSONObject());
-//				// }
+				// if ("suite0".equals(si.getSuiteName())) {
+				// continue;
+				// }
+				//
+				// // boolean isOrdered = false;
+				// // for (OrderSuiteInfo osi : orderSuites) {
+				// // if (si.getSuiteId().equals(osi.getSuiteId())) {
+				// // isOrdered = true;
+				// // break;
+				// // }
+				// // }
+				// //
+				// // if (!isOrdered) {
+				// allSuitesArray.put(si.toJSONObject());
+				// // }
 				if (si.getSuiteName().startsWith(suitePrefix)) {
 					allSuitesArray.put(si.toJSONObject());
 				}
-				
+
 			}
 			ret.put("all_suites", allSuitesArray);
 		}
@@ -321,7 +336,9 @@ public class ProfileApiController {
 		availableTime = df.format(cal.getTime());
 		log.info("available time: " + availableTime);
 		VOSHttpResponse vosResponse = ContextLoader.getVOSClient()
-				.subscribeSuite(userDao.genVosAccountName(countryCode, userName), suiteId, availableTime);
+				.subscribeSuite(
+						userDao.genVosAccountName(countryCode, userName),
+						suiteId, availableTime);
 		if (vosResponse.getHttpStatusCode() != 200
 				|| !vosResponse.isOperationSuccess()) {
 			log.error("\nCannot do callback for user : " + countryCode
@@ -489,6 +506,5 @@ public class ProfileApiController {
 			return;
 		}
 	}
-	
-	
+
 }
