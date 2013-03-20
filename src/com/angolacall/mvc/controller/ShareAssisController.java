@@ -31,11 +31,19 @@ public class ShareAssisController {
 		log.info("access_token: " + access_token);
 
 		String openId = "";
-
-		session.setAttribute("title", title);
-		session.setAttribute("url", url);
-		session.setAttribute("summary", summary);
-		session.setAttribute("images", images);
+		
+		if (!"".equals(title)) {
+			session.setAttribute("title", title);
+		}
+		if (!"".equals(url)) {
+			session.setAttribute("url", url);
+		}
+		if (!"".equals(summary)) {
+			session.setAttribute("summary", summary);
+		}
+		if (!"".equals(images)) {
+			session.setAttribute("images", images);
+		}
 
 		if (access_token != null && !access_token.equals("")) {
 			session.setAttribute("access_token", access_token);
@@ -52,13 +60,19 @@ public class ShareAssisController {
 		if (accessToken == null || accessToken.equals("") || "".equals(openId)) {
 			view.setViewName("share_assist/qq_login");
 		} else {
-			view.setViewName("share_assist/sharetoqzone");
+			int retCode = ShareAssistance.shareToQzone(session);
+			view.setViewName("share_assist/sharetoqzone_result");
+			view.addObject("ret_code", new Integer(retCode));
 		}
 		return view;
 	}
 
 	@RequestMapping("/process_qq_redirect_url")
 	public ModelAndView processQQRedirectUrl(HttpSession session) {
+		String title = (String) session.getAttribute("title");
+		log.info("processQQRedirectUrl - title: " + title);
+		
+		
 		ModelAndView view = new ModelAndView(
 				"share_assist/qqredirecturlprocess");
 		return view;

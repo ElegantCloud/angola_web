@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="zh">
   <head>
-    <title>智会-500</title>
+    <title>500</title>
 	<jsp:include page="../common/_head.jsp"></jsp:include>
   </head>
 

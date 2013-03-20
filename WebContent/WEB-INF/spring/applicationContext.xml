@@ -64,6 +64,12 @@
 		<property name="qqAppId">
 		    <value>${qq_app_id}</value>
 		</property>
+		<property name="qqShareSite">
+		    <value>${qq_share_site}</value>
+		</property>
+		<property name="qqShareFromUrl">
+		    <value>${qq_share_from_url}</value>
+		</property>
 	</bean>
 	
 	<bean id="sms_client" class="com.richitec.sms.client.SMSClient">
