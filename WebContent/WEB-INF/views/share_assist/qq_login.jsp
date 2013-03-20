@@ -11,11 +11,11 @@
 <body>
 	<%
 		Configuration cfg = ContextLoader.getConfiguration();
+		String redirecturl = "https://openmobile.qq.com/oauth2.0/m_authorize?response_type=token&client_id=%s&redirect_uri=%s/share_assist/process_qq_redirect_url&scope=add_share&display=mobile";
+		redirecturl = String.format(redirecturl, cfg.getQqAppId(),
+				cfg.getServerUrl());
+		response.sendRedirect(redirecturl);
 	%>
-	<script type="text/javascript">
-		location = "https://openmobile.qq.com/oauth2.0/m_authorize?response_type=token&client_id=<%=cfg.getQqAppId()%>&redirect_uri=<%=cfg.getServerUrl()%>/share_assist/process_qq_redirect_url&scope=add_share&display=mobile";
-	</script>
-
 
 </body>
 </html>
