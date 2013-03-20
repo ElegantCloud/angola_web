@@ -18,7 +18,7 @@
 	%>
 	<div class="container">
 		<div class="row">
-			<div class="hero-unit">
+			<div class="offset3 span5">
 				<%
 		String title = formatString((String) session.getAttribute("title"));
 		String url = formatString((String) session.getAttribute("url"));
@@ -28,7 +28,7 @@
 		
 		if (retCode == 0) {
 			%>
-				<h2>您已成功分享以下内容到QQ空间</h2>
+				<h3>您已成功分享以下内容到QQ空间</h3>
 				<blockquote>
 					<p><%=summary %></p>
 				</blockquote>
