@@ -61,6 +61,9 @@
 		<property name="yeepayNotifyReturnUrl">
 		    <value>${yeepay_notify_url}</value>
 		</property>
+		<property name="qqAppId">
+		    <value>${qq_app_id}</value>
+		</property>
 	</bean>
 	
 	<bean id="sms_client" class="com.richitec.sms.client.SMSClient">
