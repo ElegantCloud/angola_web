@@ -18,7 +18,7 @@
 			<a class="btn btn-navbar" data-toggle="collapse"
 				data-target=".nav-collapse"> <span class="icon-bar"></span> <span
 				class="icon-bar"></span> <span class="icon-bar"></span>
-			</a> <a class="brand" href="http://www.uu-talk.com/">环宇通</a>
+			</a> <a class="brand" href="http://www.uu-talk.com/">悠聊</a>
 			<ul class="nav">
 				<li><a id="username" class="im-attendee-name" title="<%=userBean.getUserName()%>">
 				    <i class="icon-user"></i>&nbsp;<%=userBean.getDisplayName()%></a>

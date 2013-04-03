@@ -5,7 +5,7 @@
 
 <html lang="zh">
 <head>
-<title>环宇通管理系统</title>
+<title>悠聊管理系统</title>
 <jsp:include page="common/_head.jsp"></jsp:include>
 </head>
 <body>

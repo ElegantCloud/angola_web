@@ -26,12 +26,12 @@
     	<div class="row">
     		<div id="reg_success_div" class="span5 offset4 hidden">
 				<h3>
-					恭喜你，注册成功！<a href="/appvcenter/downloadapp/3/android">点此下载环宇通客户端</a>
+					恭喜你，注册成功！<a href="/appvcenter/downloadapp/3/android">点此下载悠聊客户端</a>
 				</h3>
 			</div>
     	
 	    	<form id="formSignup" class="im-form span6 offset3">
-			    <h3>您的朋友邀请您加入环宇通</h3>
+			    <h3>您的朋友邀请您加入悠聊</h3>
 			    <hr>
 			    <div id="divError" class="alert alert-error hidden">
 			     <strong>错误：</strong><span id="error_text"></span>

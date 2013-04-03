@@ -137,10 +137,10 @@ public class ChargeAccountController {
         String outTradeNo = ChargeUtil.getOrderNumber(ChargeType.alipay.name(), countryCode, userName);
         requestParams.put("out_trade_no", outTradeNo);
         // 商品名称
-        String subject = "环宇通账户充值";
+        String subject = "悠聊账户充值";
         requestParams.put("subject", subject);
         // 商品描述
-        String body = "环宇通网络电话账户充值";
+        String body = "悠聊网络电话账户充值";
         requestParams.put("body", body);
         // 商品人民币总价
         String rmbFee = String.format("%.2f", chargeMoney.floatValue());
@@ -334,7 +334,7 @@ public class ChargeAccountController {
 			 */
 			chargeDao.addChargeRecord(chargeId, countryCode, userName, value,
 					ChargeStatus.success);
-			// smsClient.sendTextMessage(accountName, "您的环宇通账户已成功充值" + value
+			// smsClient.sendTextMessage(accountName, "您的悠聊账户已成功充值" + value
 			// + "元，谢谢！");
 
 			ChargeUtil
@@ -621,7 +621,7 @@ public class ChargeAccountController {
 		if (vosResp.isOperationSuccess()) {
 			chargeDao.addChargeRecord(chargeId, countryCode, userName, value,
 					ChargeStatus.success);
-			smsClient.sendTextMessage(userName, "您的环宇通账户已成功充值" + value
+			smsClient.sendTextMessage(userName, "您的悠聊账户已成功充值" + value
 					+ "元，谢谢！");
 
 			ChargeUtil

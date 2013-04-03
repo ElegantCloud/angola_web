@@ -628,7 +628,7 @@ public class UserController extends ExceptionController {
 			int rows = userDao.changePassword(userName, CryptoUtil.md5(newPwd),
 					countryCode);
 			if (rows > 0) {
-				String msg = String.format("您的新密码是%s，请登录后及时修改您的密码。[环宇通]",
+				String msg = String.format("您的新密码是%s，请登录后及时修改您的密码。[悠聊]",
 						newPwd);
 				String bindPhone = (String) user.get("bindphone");
 				smsClient.sendTextMessage(bindPhone, msg);
@@ -729,12 +729,12 @@ public class UserController extends ExceptionController {
 		String userName = (String) user.get("username");
 		String email = (String) user.get("email");
 		String randomId = (String) user.get("random_id");
-		String title = "环宇通账户密码重置";
+		String title = "悠聊账户密码重置";
 		String url = config.getServerUrl() + "/user/resetpwdvialink/"
 				+ randomId;
 
 		String content = "<h3>亲爱的用户" + countryCode + userName
-				+ "，<br/>欢迎您使用环宇通网络电话。</h3>"
+				+ "，<br/>欢迎您使用悠聊网络电话。</h3>"
 				+ "<p><h4>点击密码重置，您可重新设置您的密码。</h4><br/>" + "<a href=\"" + url
 				+ "\"><button type=\"button\">密码重置</button></a><br/><br/>"
 				+ "如果不能点击，请复制以下链接到浏览器。<br/>" + url + "</p>";

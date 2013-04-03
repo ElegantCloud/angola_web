@@ -70,7 +70,7 @@ public class ChargeUtil {
 			
 			SMSClient smsClient = ContextLoader.getSMSClient();
 			try {
-				smsClient.sendTextMessage(userName, "您的环宇通账户已成功充值" + String.format("%.2f", amount.floatValue())
+				smsClient.sendTextMessage(userName, "您的悠聊账户已成功充值" + String.format("%.2f", amount.floatValue())
 						+ "元，谢谢！");
 			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
