@@ -49,7 +49,7 @@
 </div>
 
 <div class="footer w960">
-	<p class="copyright">Copyright © (HongKong) UuTalk Technology Limited. （香港）寰宇通科技有限公司</p>
+	<p class="copyright">Copyright © (HongKong) UuTalk Technology Limited. （香港）悠聊科技有限公司</p>
 	<p class="powered">    
 		Powered by 
 		<a href="http://www.dedecms.com" title="织梦内容管理系统(DedeCms)" target="_blank">DedeCMS_V57_UTF8_SP1</a>

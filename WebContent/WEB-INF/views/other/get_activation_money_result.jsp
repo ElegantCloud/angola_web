@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-<title>环宇通</title>
+<title>悠聊</title>
 <jsp:include page="../common/_head.jsp"></jsp:include>
 </head>
 <body>
@@ -41,7 +41,7 @@
 			%>
 					<p>用户<%=countryCode + userName %>您好,</p>
 					<br/>
-					<p>您的邮箱已通过验证，感谢您对环宇通的支持！</p>
+					<p>您的邮箱已通过验证，感谢您对悠聊的支持！</p>
 			<%		
 				} else {
 			%>
@@ -50,7 +50,7 @@
 				}
 			%>
 			<div class="link_region">
-				<a href="http://www.uu-talk.com">返回首页</a>(环宇通)
+				<a href="http://www.uu-talk.com">返回首页</a>(悠聊)
 			</div>
 			</div>
 		</div>

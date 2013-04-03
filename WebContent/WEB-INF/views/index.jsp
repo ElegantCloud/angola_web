@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="zh">
   <head>
-    <title>环宇通</title>
+    <title>悠聊</title>
 	<jsp:include page="common/_head.jsp"></jsp:include>
   </head>
 
@@ -16,13 +16,13 @@
     			<div class="row">
     				<div class="span3 offset1">
     					<div class="app_demo_view">
-		    				<img alt="环宇通" src="./img/uutalk-app-capture.png"/>
+		    				<img alt="悠聊" src="./img/uutalk-app-capture.png"/>
 	    				</div>
     				</div>
     			</div>
     		</div>
     		<div class="span4">
-    			<h1>环宇通&nbsp;<small>最好用的网络电话</small></h1>
+    			<h1>悠聊&nbsp;<small>最好用的网络电话</small></h1>
     			<ul>
     				<li><h2><small>免费下载,免费注册,即可获赠话费</small></h2></li>
 	    			<li><h2><small>高清语音质量</small></h2></li>
@@ -35,7 +35,7 @@
     					<div>
     						<img class="pull-left" alt="android" src="./img/android.png">
     						<div class="pull-right">
-    							<p><strong>&nbsp;环宇通 Android 版</strong><br>下载 apk 文件</p>
+    							<p><strong>&nbsp;悠聊 Android 版</strong><br>下载 apk 文件</p>
     						</div>
     					</div>
     				</a>    				

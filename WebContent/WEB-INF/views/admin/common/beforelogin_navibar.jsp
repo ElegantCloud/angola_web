@@ -6,7 +6,7 @@
 			<a class="btn btn-navbar" data-toggle="collapse"
 				data-target=".nav-collapse"> <span class="icon-bar"></span> <span
 				class="icon-bar"></span> <span class="icon-bar"></span> </a> <a
-				class="brand">环宇通管理系统</a>
+				class="brand">悠聊管理系统</a>
 		</div>
 	</div>
 </div>

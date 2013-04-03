@@ -447,12 +447,12 @@ public class ProfileApiController {
 		String userName = (String) user.get("username");
 		String email = (String) user.get("email");
 		String randomId = (String) user.get("random_id");
-		String title = "环宇通邮箱绑定验证";
+		String title = "悠聊邮箱绑定验证";
 
 		String url = config.getServerUrl() + "/verifyEmailAddress/" + randomId;
 
 		String content = "<h3>亲爱的用户" + countryCode + userName
-				+ "，<br/>欢迎您使用环宇通网络电话。</h3>"
+				+ "，<br/>欢迎您使用悠聊网络电话。</h3>"
 				+ "<p><h4>点击验证邮箱按钮，完成邮箱绑定验证。</h4><br/>" + "<a href=\"" + url
 				+ "\"><button type=\"button\">验证邮箱</button></a><br/><br/>"
 				+ "如果不能点击，请复制以下链接到浏览器。<br/>" + url + "</p>";
@@ -469,12 +469,12 @@ public class ProfileApiController {
 		Float frozenMoney = (Float) user.get("frozen_money");
 		String email = (String) user.get("email");
 		String randomId = (String) user.get("random_id");
-		String title = "环宇通喊你领话费啦";
+		String title = "悠聊喊你领话费啦";
 		String url = config.getServerUrl() + "/getFrozenMoneyViaEmailLink/"
 				+ randomId;
 
 		String content = "<h3>亲爱的用户" + countryCode + userName
-				+ "，<br/>欢迎您使用环宇通网络电话。</h3>"
+				+ "，<br/>欢迎您使用悠聊网络电话。</h3>"
 				+ "<p><h4>现在点击领取话费，即可获得<font color=\"red\">" + frozenMoney
 				+ "元</font>话费！</h4><br/>" + "<a href=\"" + url
 				+ "\"><button type=\"button\">领取话费</button></a><br/><br/>"

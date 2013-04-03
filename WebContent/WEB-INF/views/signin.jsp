@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="zh">
   <head>
-    <title>环宇通-登录</title>
+    <title>悠聊-登录</title>
 	<jsp:include page="common/_head.jsp"></jsp:include>
   </head>
 

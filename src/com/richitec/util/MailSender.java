@@ -105,8 +105,8 @@ public class MailSender {
 
 	public static void main(String[] args) {
 		MailSender sm = new MailSender();
-		String title = "环宇通喊你领话费啦";
-		String content = "<h3>亲爱的用户，<br/>欢迎您使用环宇通网络电话。<h3>"
+		String title = "悠聊喊你领话费啦";
+		String content = "<h3>亲爱的用户，<br/>欢迎您使用悠聊网络电话。<h3>"
 				+ "<p><h4>现在点击领取话费，即可获得<font color=\"red\">"
 				+ 16
 				+ "元</font>话费！</h4><br/>"

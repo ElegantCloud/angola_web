@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html lang="zh">
   <head>
-    <title>环宇通-充值账户</title>
+    <title>悠聊-充值账户</title>
 	<jsp:include page="common/_head.jsp"></jsp:include>
   </head>
 
@@ -58,7 +58,7 @@
 							  if (chargeId.startsWith(ChargeType.alipay.name())){
 								  type = "支付宝";
 							  } else if (chargeId.startsWith(ChargeType.card.name())) {
-								  type = "环宇通充值卡";
+								  type = "悠聊充值卡";
 							  } else if (chargeId.startsWith(ChargeType.invitereg.name())) {
 								  type = "系统赠送[您邀请的用户成功注册]";
 							  } else if (chargeId.startsWith(ChargeType.chargecontribute.name())) {
