@@ -26,7 +26,7 @@
     	<div class="row">
     		<div id="reg_success_div" class="span5 offset4 hidden">
 				<h3>
-					恭喜你，注册成功！<a href="/uutalk/signin">点此登录</a>
+					恭喜你，注册成功！<a href="/appvcenter/downloadapp/4/android">点此下载悠聊客户端</a>
 				</h3>
 			</div>
     	
