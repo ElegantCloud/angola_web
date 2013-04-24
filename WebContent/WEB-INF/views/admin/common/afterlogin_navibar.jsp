@@ -29,7 +29,7 @@
 			</ul>
 			<div class="nav-collapse">
 				<ul class="nav pull-right">
-					<li class="<%=Pages.gift_manage.name().equals(pageName) ? "active" : ""%>"><a href="/uutalk/admin/giftmanage">邀请赠送管理</a></li>
+					<li class="<%=Pages.gift_manage.name().equals(pageName) ? "active" : ""%>"><a href="/uutalk/admin/giftmanage">赚话费管理</a></li>
 					<li class="<%=Pages.charge_manage.name().equals(pageName) ? "active" : ""%>"><a href="/uutalk/admin/chargemanage">充值管理</a></li>
 					<li class="<%=Pages.register_manage.name().equals(pageName) ? "active" : ""%>"><a href="/uutalk/admin/registermanage">注册管理</a></li>
 					<li class="<%=Pages.notice_manage.name().equals(pageName) ? "active" : ""%>"><a href="/uutalk/admin/noticemanage">消息管理</a></li>

@@ -46,23 +46,27 @@ public class UUTalkConfigManager {
 		}
 		return desc;
 	}
-	
+
 	public void setInviteChargeGiftDescription(String desc) {
-		commonConfigDao.setValue(UUTalkConfigKeys.invite_charge_invite_desc_text.name(), desc);
+		commonConfigDao.setValue(
+				UUTalkConfigKeys.invite_charge_invite_desc_text.name(), desc);
 	}
-	
+
 	public String getInviteChargeGiftDescription() {
-		String desc = commonConfigDao.getValue(UUTalkConfigKeys.invite_charge_invite_desc_text.name());
+		String desc = commonConfigDao
+				.getValue(UUTalkConfigKeys.invite_charge_invite_desc_text
+						.name());
 		if (desc == null) {
 			desc = "";
 		}
 		return desc;
 	}
-	
+
 	public void setDefaultRegisterMoney(String money) {
-		commonConfigDao.setValue(UUTalkConfigKeys.default_register_money.name(), money);
+		commonConfigDao.setValue(
+				UUTalkConfigKeys.default_register_money.name(), money);
 	}
-	
+
 	public String getDefaultRegisterMoney() {
 		String money = commonConfigDao
 				.getValue(UUTalkConfigKeys.default_register_money.name());
@@ -71,7 +75,7 @@ public class UUTalkConfigManager {
 		}
 		return money;
 	}
-	
+
 	public Double getRegisterGivenMoney() {
 		Double defaultMoney = Double.parseDouble(getDefaultRegisterMoney());
 		RegisterActivityDao rad = ContextLoader.getRegisterActivityDao();
@@ -81,5 +85,18 @@ public class UUTalkConfigManager {
 		Double giftMoney = rad.getActivityGiftMoney(currentDate);
 		return defaultMoney > giftMoney ? defaultMoney : giftMoney;
 	}
-	
+
+	public void setAdClickGiftMoney(String money) {
+		commonConfigDao.setValue(UUTalkConfigKeys.ad_click_gift_money.name(),
+				money);
+	}
+
+	public String getAdClickGiftMoney() {
+		String money = commonConfigDao
+				.getValue(UUTalkConfigKeys.ad_click_gift_money.name());
+		if (money == null) {
+			money = "0";
+		}
+		return money;
+	}
 }

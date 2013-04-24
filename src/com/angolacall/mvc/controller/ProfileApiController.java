@@ -24,11 +24,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.alipay.client.base.PartnerConfig;
 import com.alipay.client.security.RSASignature;
 import com.angolacall.constants.ChargeStatus;
+import com.angolacall.constants.ChargeType;
 import com.angolacall.constants.UUTalkConfigKeys;
 import com.angolacall.framework.Configuration;
 import com.angolacall.framework.ContextLoader;
 import com.angolacall.mvc.admin.model.ChargeMoneyConfigDao;
 import com.angolacall.mvc.admin.model.UUTalkConfigManager;
+import com.angolacall.mvc.model.charge.ChargeUtil;
 import com.angolacall.web.user.UserBean;
 import com.richitec.ucenter.model.UserDAO;
 import com.richitec.util.CryptoUtil;
@@ -128,13 +130,15 @@ public class ProfileApiController {
 			@RequestParam(value = "order_num") String orderNum,
 			@RequestParam(value = "money") String money,
 			@RequestParam(value = "countryCode") String countryCode,
-			@RequestParam(value = "username") String userName) throws JSONException, IOException {
+			@RequestParam(value = "username") String userName)
+			throws JSONException, IOException {
 		log.info("yeepaySign - content: " + content);
 		ContextLoader.getChargeDAO().addChargeRecord(orderNum, countryCode,
 				userName, Double.valueOf(money), ChargeStatus.processing,
 				chargeMoneyId);
 		JSONObject ret = new JSONObject();
-		ret.put("sign", DigestUtil.hmacSign(content, ContextLoader.getConfiguration().getYeepayKey()));
+		ret.put("sign", DigestUtil.hmacSign(content, ContextLoader
+				.getConfiguration().getYeepayKey()));
 		response.getWriter().print(ret.toString());
 	}
 
@@ -507,4 +511,14 @@ public class ProfileApiController {
 		}
 	}
 
+	@RequestMapping("/chargeWhenAdClicked")
+	public void chargeWhenAdClicked(HttpServletResponse response,
+			@RequestParam(value = "countryCode") String countryCode,
+			@RequestParam(value = "username") String userName) throws JSONException, IOException {
+		Double money = Double.parseDouble(ContextLoader.getUUTalkConfigManager().getAdClickGiftMoney());
+		boolean result = ChargeUtil.chargeUser(ChargeType.adclick, countryCode, userName, money);
+		JSONObject ret = new JSONObject();
+		ret.put("result", result);
+		response.getWriter().print(ret.toString());
+	}
 }

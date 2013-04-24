@@ -96,6 +96,8 @@ public class AdminController {
 				ucm.getRegGiftDescription());
 		view.addObject(UUTalkConfigKeys.invite_charge_invite_desc_text.name(),
 				ucm.getInviteChargeGiftDescription());
+		view.addObject(UUTalkConfigKeys.ad_click_gift_money.name(),
+				ucm.getAdClickGiftMoney());
 		return view;
 	}
 
@@ -121,6 +123,16 @@ public class AdminController {
 		log.info("editInviteChargeGiftDescription - desc: "
 				+ inviteChargeGiftDesc);
 		ucm.setInviteChargeGiftDescription(inviteChargeGiftDesc);
+	}
+
+	@RequestMapping(value = "/giftmanage/editAdClickGiftMoney")
+	public void editAdClickGiftMoney(HttpServletResponse response,
+			@RequestParam String money) throws IOException {
+		if (ValidatePattern.isValidMoney(money)) {
+			ucm.setAdClickGiftMoney(money);
+		} else {
+			response.sendError(HttpServletResponse.SC_NOT_ACCEPTABLE);
+		}
 	}
 
 	@RequestMapping(value = "/chargemanage", method = RequestMethod.GET)
@@ -265,7 +277,8 @@ public class AdminController {
 	@RequestMapping(value = "/registermanage/editRegisterActivity", method = RequestMethod.POST)
 	public void editRegisterActivity(HttpServletResponse response,
 			@RequestParam String id, @RequestParam String startDate,
-			@RequestParam String endDate, @RequestParam String giftMoney) throws IOException {
+			@RequestParam String endDate, @RequestParam String giftMoney)
+			throws IOException {
 		if (ValidatePattern.isValidMoney(giftMoney)) {
 			ContextLoader.getRegisterActivityDao().editActivity(
 					Integer.parseInt(id), startDate, endDate, giftMoney);

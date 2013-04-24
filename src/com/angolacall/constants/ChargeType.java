@@ -10,5 +10,6 @@ public enum ChargeType {
 	szx_card,
 	unicom_card,
 	telecom_card,
-	yeepay
+	yeepay,
+	adclick
 }

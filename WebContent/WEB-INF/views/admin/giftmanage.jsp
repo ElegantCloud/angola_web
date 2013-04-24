@@ -4,7 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="zh">
 <head>
-<title>邀请赠送管理</title>
+<title>赚话费管理</title>
 <jsp:include page="common/_head.jsp"></jsp:include>
 </head>
 <body>
@@ -15,6 +15,7 @@
 					.getAttribute(UUTalkConfigKeys.reg_gift_value.name());
 			String regGiftDesc = (String) request.getAttribute(UUTalkConfigKeys.reg_gift_desc_text.name());
 			String inviteChargeGiftDesc = (String) request.getAttribute(UUTalkConfigKeys.invite_charge_invite_desc_text.name());
+			String adClickGiftMoney = (String) request.getAttribute(UUTalkConfigKeys.ad_click_gift_money.name());
 	%>
 	
 	<div class="container">
@@ -26,6 +27,9 @@
 					</li>
 					<li class="">
 						<a data-toggle="tab" href="#pane-charge-gift-config">好友充值赠送配置</a>
+					</li>
+					<li class="">
+						<a data-toggle="tab" href="#pane-ad-click-gift-config">广告点击赠送配置</a>
 					</li>
 				</ul>
 				<div class="tab-content">	
@@ -66,7 +70,21 @@
 							<button id="invite_charge_gift_desc_button" class="btn" type="button">保存</button>
 						</div>
 					</div>
-
+					<div id="pane-ad-click-gift-config" class="tab-pane">
+						<h3>广告点击赠送配置</h3>
+						<hr>
+						<div id="ad_click_gift_ctrlgroup" class="control-group">
+							<label class="control-label" for="ad_click_gift_ipt">客户端显示信息</label>
+							<div class="controls">
+								<div class="input-append float-left">
+									<input id="ad_click_gift_ipt" class="span2" type="text"
+										value="<%=adClickGiftMoney%>" />
+									<button id="ad_click_gift_button" class="btn" type="button">保存</button>
+								</div>
+								<span id="ad_click_gift_edit_text" class="help-inline"></span>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -155,6 +173,41 @@
 				}
 			});
 		});
+		
+		$("#ad_click_gift_button").click(function() {
+			var money = $("#ad_click_gift_ipt").val();
+			if (giftValue == null || giftValue == "") {
+				$("#ad_click_gift_ctrlgroup").addClass("warning");
+				$("#ad_click_gift_edit_text").html("请输入金额！");
+				return false;
+			}
+			$.ajax({
+				type : "post",
+				url : "/uutalk/admin/giftmanage/editAdClickGiftMoney",
+				dataType : "json",
+				data : {
+					"money" : money
+				},
+				success : function(jqxhr, textStatus) {
+						$("#ad_click_gift_ctrlgroup").removeClass("warning");
+						$("#ad_click_gift_ctrlgroup").removeClass("error");
+						$("#ad_click_gift_edit_text").html("金额修改成功！");
+				},
+				error : function(jqXHR, textStatus) {
+					switch(jqXHR.status) {
+					case 406: 
+						$("#ad_click_gift_ctrlgroup").addClass("warning");
+						$("#ad_click_gift_edit_text").html("请输入合法的金额数字（如1，1.0或1.00）！");
+						break;
+					default:
+						$("#ad_click_gift_ctrlgroup").addClass("error");
+						$("#ad_click_gift_edit_text").html("系统内部出错(STATUS CODE: " + jqXHR.status + ")");
+						break;
+					}
+				}	
+			});
+		});
+		
 	</script>
 </body>
 </html>
