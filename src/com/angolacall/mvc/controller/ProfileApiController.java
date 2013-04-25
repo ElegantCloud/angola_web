@@ -519,6 +519,7 @@ public class ProfileApiController {
 		boolean result = ChargeUtil.chargeUser(ChargeType.adclick, countryCode, userName, money);
 		JSONObject ret = new JSONObject();
 		ret.put("result", result);
+		ret.put("money", money.doubleValue());
 		response.getWriter().print(ret.toString());
 	}
 }
