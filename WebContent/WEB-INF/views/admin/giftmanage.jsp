@@ -74,7 +74,7 @@
 						<h3>广告点击赠送配置</h3>
 						<hr>
 						<div id="ad_click_gift_ctrlgroup" class="control-group">
-							<label class="control-label" for="ad_click_gift_ipt">客户端显示信息</label>
+							<label class="control-label" for="ad_click_gift_ipt">广告点击赠送金额</label>
 							<div class="controls">
 								<div class="input-append float-left">
 									<input id="ad_click_gift_ipt" class="span2" type="text"
@@ -176,7 +176,7 @@
 		
 		$("#ad_click_gift_button").click(function() {
 			var money = $("#ad_click_gift_ipt").val();
-			if (giftValue == null || giftValue == "") {
+			if (money == null || money == "") {
 				$("#ad_click_gift_ctrlgroup").addClass("warning");
 				$("#ad_click_gift_edit_text").html("请输入金额！");
 				return false;

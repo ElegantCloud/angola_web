@@ -511,7 +511,7 @@ public class ProfileApiController {
 		}
 	}
 
-	@RequestMapping("/chargeWhenAdClicked")
+	@RequestMapping("/adclick")
 	public void chargeWhenAdClicked(HttpServletResponse response,
 			@RequestParam(value = "countryCode") String countryCode,
 			@RequestParam(value = "username") String userName) throws JSONException, IOException {
