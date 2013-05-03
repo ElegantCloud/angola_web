@@ -16,6 +16,7 @@
 			String regGiftDesc = (String) request.getAttribute(UUTalkConfigKeys.reg_gift_desc_text.name());
 			String inviteChargeGiftDesc = (String) request.getAttribute(UUTalkConfigKeys.invite_charge_invite_desc_text.name());
 			String adClickGiftMoney = (String) request.getAttribute(UUTalkConfigKeys.ad_click_gift_money.name());
+			String adClickMaxGiftMoney = (String) request.getAttribute(UUTalkConfigKeys.ad_click_max_gift_money.name());
 	%>
 	
 	<div class="container">
@@ -82,6 +83,18 @@
 									<button id="ad_click_gift_button" class="btn" type="button">保存</button>
 								</div>
 								<span id="ad_click_gift_edit_text" class="help-inline"></span>
+							</div>
+						</div>
+						
+						<div id="ad_click_max_gift_ctrlgroup" class="control-group">
+							<label class="control-label" for="ad_click_max_gift_ipt">一天最多赠送金额</label>
+							<div class="controls">
+								<div class="input-append float-left">
+									<input id="ad_click_max_gift_ipt" class="span2" type="text"
+										value="<%=adClickMaxGiftMoney%>" />
+									<button id="ad_click_max_gift_button" class="btn" type="button">保存</button>
+								</div>
+								<span id="ad_click_max_gift_edit_text" class="help-inline"></span>
 							</div>
 						</div>
 					</div>
@@ -202,6 +215,40 @@
 					default:
 						$("#ad_click_gift_ctrlgroup").addClass("error");
 						$("#ad_click_gift_edit_text").html("系统内部出错(STATUS CODE: " + jqXHR.status + ")");
+						break;
+					}
+				}	
+			});
+		});
+		
+		$("#ad_click_max_gift_button").click(function() {
+			var money = $("#ad_click_max_gift_ipt").val();
+			if (money == null || money == "") {
+				$("#ad_click_max_gift_ctrlgroup").addClass("warning");
+				$("#ad_click_max_gift_edit_text").html("请输入金额！");
+				return false;
+			}
+			$.ajax({
+				type : "post",
+				url : "/uutalk/admin/giftmanage/editAdClickMaxGiftMoney",
+				dataType : "json",
+				data : {
+					"money" : money
+				},
+				success : function(jqxhr, textStatus) {
+						$("#ad_click_max_gift_ctrlgroup").removeClass("warning");
+						$("#ad_click_max_gift_ctrlgroup").removeClass("error");
+						$("#ad_click_max_gift_edit_text").html("金额修改成功！");
+				},
+				error : function(jqXHR, textStatus) {
+					switch(jqXHR.status) {
+					case 406: 
+						$("#ad_click_max_gift_ctrlgroup").addClass("warning");
+						$("#ad_click_max_gift_edit_text").html("请输入合法的金额数字（如1，1.0或1.00）！");
+						break;
+					default:
+						$("#ad_click_max_gift_ctrlgroup").addClass("error");
+						$("#ad_click_max_gift_edit_text").html("系统内部出错(STATUS CODE: " + jqXHR.status + ")");
 						break;
 					}
 				}	

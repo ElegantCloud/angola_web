@@ -99,4 +99,17 @@ public class UUTalkConfigManager {
 		}
 		return money;
 	}
+	
+	public void setAdMaxGiftMoney(String money) {
+		commonConfigDao.setValue(UUTalkConfigKeys.ad_click_max_gift_money.name(), money);
+	}
+	
+	public String getAdClickMaxGiftMoney() {
+		String money = commonConfigDao
+				.getValue(UUTalkConfigKeys.ad_click_max_gift_money.name());
+		if (money == null) {
+			money = "0";
+		}
+		return money;
+	}
 }

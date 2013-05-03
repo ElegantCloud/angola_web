@@ -98,4 +98,28 @@ public class ChargeDAO {
 		}
 		return null;
 	}
+
+	public Double getDayAdClickGiftMoneyPerUser(String userName,
+			String countryCode) {
+		String sql = "SELECT SUM(money) FROM im_charge_history WHERE username = ? AND countrycode = ? AND status = ? AND DATE(time) = CURDATE()";
+		Double money = 0.0;
+		try {
+			money = jdbc.queryForObject(sql, new Object[] { userName,
+					countryCode, ChargeStatus.success.name() }, Double.class);
+		} catch (Exception e) {
+			log.info("getDayAdClickGiftMoneyPerUser: " + e.getMessage());
+		}
+		return money;
+	}
+	
+	public Long getAdChargeLastTimeByUser(String userName, String countryCode) {
+		String sql = "SELECT UNIX_TIMESTAMP(time) AS create_time FROM im_charge_history  WHERE username = ? AND countrycode = ? AND chargeId LIKE 'adclick%' AND status = 'success' ORDER BY time DESC LIMIT 1";
+		Long time = 0l;
+		try {
+			time = jdbc.queryForLong(sql, userName, countryCode);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return time;
+	}
 }

@@ -98,6 +98,7 @@ public class AdminController {
 				ucm.getInviteChargeGiftDescription());
 		view.addObject(UUTalkConfigKeys.ad_click_gift_money.name(),
 				ucm.getAdClickGiftMoney());
+		view.addObject(UUTalkConfigKeys.ad_click_max_gift_money.name(), ucm.getAdClickMaxGiftMoney());
 		return view;
 	}
 
@@ -135,6 +136,15 @@ public class AdminController {
 		}
 	}
 
+	@RequestMapping(value = "/giftmanage/editAdClickMaxGiftMoney")
+	public void editAdClickMaxGiftMoney(HttpServletResponse response, @RequestParam String money) throws IOException {
+		if (ValidatePattern.isValidMoney(money)) {
+			ucm.setAdMaxGiftMoney(money);
+		} else {
+			response.sendError(HttpServletResponse.SC_NOT_ACCEPTABLE);
+		}
+	}
+	
 	@RequestMapping(value = "/chargemanage", method = RequestMethod.GET)
 	public ModelAndView chargeManage() {
 		ModelAndView view = new ModelAndView("admin/chargemanage");

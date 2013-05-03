@@ -73,7 +73,7 @@ footer span {
 	float: right;
 }
 
-#reg_gift_desc_ctrlgroup {
+#reg_gift_desc_ctrlgroup, #ad_click_max_gift_ctrlgroup {
 	margin-top: 50px;
 }
 

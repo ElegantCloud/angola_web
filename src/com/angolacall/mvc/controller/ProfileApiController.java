@@ -30,6 +30,7 @@ import com.angolacall.framework.Configuration;
 import com.angolacall.framework.ContextLoader;
 import com.angolacall.mvc.admin.model.ChargeMoneyConfigDao;
 import com.angolacall.mvc.admin.model.UUTalkConfigManager;
+import com.angolacall.mvc.model.charge.ChargeDAO;
 import com.angolacall.mvc.model.charge.ChargeUtil;
 import com.angolacall.web.user.UserBean;
 import com.richitec.ucenter.model.UserDAO;
@@ -158,7 +159,7 @@ public class ProfileApiController {
 				+ "/invitejoin/" + inviterId;
 		response.getWriter().print(inviteRegUrl);
 	}
-	
+
 	@RequestMapping("/getRegInviteLink2")
 	public void getRegInviteLink2(HttpServletResponse response,
 			@RequestParam(value = "countryCode") String countryCode,
@@ -533,12 +534,36 @@ public class ProfileApiController {
 	@RequestMapping("/adclick")
 	public void chargeWhenAdClicked(HttpServletResponse response,
 			@RequestParam(value = "countryCode") String countryCode,
-			@RequestParam(value = "username") String userName) throws JSONException, IOException {
-		Double money = Double.parseDouble(ContextLoader.getUUTalkConfigManager().getAdClickGiftMoney());
-		boolean result = ChargeUtil.chargeUser(ChargeType.adclick, countryCode, userName, money);
+			@RequestParam(value = "username") String userName)
+			throws JSONException, IOException {
 		JSONObject ret = new JSONObject();
-		ret.put("result", result);
-		ret.put("money", money.doubleValue());
+		UUTalkConfigManager ucm = ContextLoader.getUUTalkConfigManager();
+		ChargeDAO chargeDao = ContextLoader.getChargeDAO();
+		Double maxGiftMoney = Double.parseDouble(ucm.getAdClickMaxGiftMoney());
+		Double daySumMoney = chargeDao.getDayAdClickGiftMoneyPerUser(userName,
+				countryCode);
+		log.info("### user " + userName + " has earned " + daySumMoney
+				+ " in amount by ad click");
+		if (daySumMoney < maxGiftMoney) {
+			long lastTime = chargeDao.getAdChargeLastTimeByUser(userName,
+					countryCode) * 1000;
+			if (Math.abs(System.currentTimeMillis() - lastTime) > 20000) {
+
+				Double money = Double.parseDouble(ContextLoader
+						.getUUTalkConfigManager().getAdClickGiftMoney());
+				boolean result = ChargeUtil.chargeUser(ChargeType.adclick,
+						countryCode, userName, money);
+				ret.put("result", result);
+				ret.put("money", money.doubleValue());
+				ret.put("reason", "charge failed");
+			} else {
+				ret.put("result", false);
+				ret.put("reason", "too short ad clicked interval");
+			}
+		} else {
+			ret.put("result", false);
+			ret.put("result", "reach max gift value");
+		}
 		response.getWriter().print(ret.toString());
 	}
 }
