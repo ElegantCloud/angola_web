@@ -109,6 +109,9 @@ public class ChargeDAO {
 		} catch (Exception e) {
 			log.info("getDayAdClickGiftMoneyPerUser: " + e.getMessage());
 		}
+		if (money == null) {
+			money = 0.0;
+		}
 		return money;
 	}
 	
@@ -119,6 +122,9 @@ public class ChargeDAO {
 			time = jdbc.queryForLong(sql, userName, countryCode);
 		} catch (Exception e) {
 			// TODO: handle exception
+		}
+		if (time == null) {
+			time = 0l;
 		}
 		return time;
 	}
