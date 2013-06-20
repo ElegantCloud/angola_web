@@ -28,6 +28,8 @@ public class Configuration {
 	private String qqAppId;
 	private String qqShareSite;
 	private String qqShareFromUrl;
+	private String vosAgentSource;
+	private String vosAgentId;
 	
 	public String getSuite0Id() {
 		return this.suite0Id;
@@ -195,6 +197,22 @@ public class Configuration {
 
 	public void setQqShareFromUrl(String qqShareFromUrl) {
 		this.qqShareFromUrl = qqShareFromUrl;
+	}
+
+	public String getVosAgentSource() {
+		return vosAgentSource;
+	}
+
+	public void setVosAgentSource(String vosAgentSource) {
+		this.vosAgentSource = vosAgentSource;
+	}
+
+	public String getVosAgentId() {
+		return vosAgentId;
+	}
+
+	public void setVosAgentId(String vosAgentId) {
+		this.vosAgentId = vosAgentId;
 	}
 
 	

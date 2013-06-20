@@ -1,6 +1,7 @@
 package com.angolacall.mvc.controller;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.util.Map;
 
@@ -554,9 +555,15 @@ public class UserController extends ExceptionController {
 	}
 
 	private String addUserToVOS(String vosAccountName, String vosPhoneNumber,
-			String vosPhonePwd) {
+			String vosPhonePwd, String source) {
 		// create new account in VOS
-		VOSHttpResponse addAccountResp = vosClient.addAccount(vosAccountName);
+		VOSHttpResponse addAccountResp;
+		if (source != null && source.equals(config.getVosAgentSource())) {
+			addAccountResp = vosClient.addAccount(vosAccountName,
+					config.getVosAgentId());
+		} else {
+			addAccountResp = vosClient.addAccount(vosAccountName, null);
+		}
 		if (addAccountResp.getHttpStatusCode() != 200
 				|| !addAccountResp.isOperationSuccess()) {
 			log.error("\nCannot create VOS accont for user : " + vosAccountName
@@ -566,6 +573,7 @@ public class UserController extends ExceptionController {
 					+ addAccountResp.getVOSStatusCode()
 					+ "\nVOS Response Info ："
 					+ addAccountResp.getVOSResponseInfo());
+
 			return "2001";
 		}
 
@@ -628,8 +636,8 @@ public class UserController extends ExceptionController {
 			int rows = userDao.changePassword(userName, CryptoUtil.md5(newPwd),
 					countryCode);
 			if (rows > 0) {
-				String msg = String.format("您的新密码是%s，请登录后及时修改您的密码。[悠聊]",
-						newPwd);
+				String msg = String
+						.format("您的新密码是%s，请登录后及时修改您的密码。[悠聊]", newPwd);
 				String bindPhone = (String) user.get("bindphone");
 				smsClient.sendTextMessage(bindPhone, msg);
 			} else {
@@ -676,7 +684,7 @@ public class UserController extends ExceptionController {
 		String vosPhonePwd = (String) vosPhoneInfoMap.get("vosphone_pwd");
 		result = addUserToVOS(
 				UserDAO.genVosAccountName(countryCode, userName, source),
-				vosPhoneNumber.toString(), vosPhonePwd);
+				vosPhoneNumber.toString(), vosPhonePwd, source);
 
 		if ("0".equals(result)) {
 			int affectedRows = userDao.updateUserAccountStatus(countryCode,

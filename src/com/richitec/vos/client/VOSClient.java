@@ -58,6 +58,7 @@ public class VOSClient {
 	public static final String P_calloutBillingNumber = "calloutBillingNumber";
 	public static final String P_calloutBillingPassword = "calloutBillingPassword";
 	public static final String P_id = "id";
+	public static final String P_agentAccount = "agentAccount";
 
 	private HttpClient httpClient;
 	private PoolingClientConnectionManager connManager;
@@ -124,7 +125,7 @@ public class VOSClient {
 	 * 
 	 * @param account
 	 */
-	public VOSHttpResponse addAccount(String account) {
+	public VOSHttpResponse addAccount(String account, String agent) {
 		List<NameValuePair> params = new LinkedList<NameValuePair>();
 		params.add(new BasicNameValuePair(P_loginName, loginName));
 		params.add(new BasicNameValuePair(P_loginPassword, loginPassword));
@@ -133,6 +134,10 @@ public class VOSClient {
 		params.add(new BasicNameValuePair(P_operationType, "0"));
 		// params.add(new BasicNameValuePair(P_validTime,
 		// "2015-01-01 00:00:00"));
+		if (agent != null) {
+			params.add(new BasicNameValuePair(P_agentAccount, agent));
+		}
+		
 
 		HttpEntity entity = new UrlEncodedFormEntity(params, Consts.UTF_8);
 		HttpPost post = new HttpPost(this.baseURI + "setcustomer.jsp");

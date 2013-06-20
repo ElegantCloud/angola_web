@@ -70,6 +70,12 @@
 		<property name="qqShareFromUrl">
 		    <value>${qq_share_from_url}</value>
 		</property>
+		<property name="vosAgentSource">
+		    <value>${vos_agent_source}</value>
+		</property>
+		<property name="vosAgentId">
+		    <value>${vos_agent_id}</value>
+		</property>
 	</bean>
 	
 	<bean id="sms_client" class="com.richitec.sms.client.SMSClient">
