@@ -35,6 +35,7 @@ import com.angolacall.mvc.admin.model.UUTalkConfigManager;
 import com.angolacall.mvc.model.charge.ChargeUtil;
 import com.angolacall.web.user.UserBean;
 import com.richitec.sms.client.SMSClient;
+import com.richitec.sms.client.SMSHttpResponse;
 import com.richitec.ucenter.model.UserDAO;
 import com.richitec.util.CryptoUtil;
 import com.richitec.util.MailSender;
@@ -639,7 +640,10 @@ public class UserController extends ExceptionController {
 				String msg = String
 						.format("您的新密码是%s，请登录后及时修改您的密码。[悠聊]", newPwd);
 				String bindPhone = (String) user.get("bindphone");
-				smsClient.sendTextMessage(bindPhone, msg);
+				SMSHttpResponse resp = smsClient
+						.sendTextMessage(bindPhone, msg);
+				log.info(String.format("sms response code: %d, new pwd: %s",
+						resp.getCode(), newPwd));
 			} else {
 				response.sendError(HttpServletResponse.SC_NOT_FOUND);
 			}
