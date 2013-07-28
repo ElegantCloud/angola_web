@@ -82,4 +82,16 @@ public class UUTalkConfigManager {
 		return defaultMoney > giftMoney ? defaultMoney : giftMoney;
 	}
 	
+	public void setAngolaCallbackVersionRegisterMoney(String money) {
+		commonConfigDao.setValue(UUTalkConfigKeys.ao_cb_register_money.name(), money);
+	}
+
+	public String getAngolaCallbackVersionRegisterMoney() {
+		String money = commonConfigDao
+				.getValue(UUTalkConfigKeys.ao_cb_register_money.name());
+		if (money == null) {
+			money = "0";
+		}
+		return money;
+	}
 }

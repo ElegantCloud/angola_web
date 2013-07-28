@@ -21,6 +21,7 @@ public class CountryManager {
 		countryMap.put("0057", "co");
 		countryMap.put("0086", "cn");
 		countryMap.put("00244", "ao");
+		countryMap.put("244", "ao");
 		countryMap.put("00852", "hk");
 		countryMap.put("0066", "th");
 	}

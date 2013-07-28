@@ -16,6 +16,7 @@
 	<%
 		String defaultRegMoney = (String) request.getAttribute(UUTalkConfigKeys.default_register_money.name());
 		Map<String, Object> regActivityMap = (Map<String, Object>) request.getAttribute("register_activity");
+		String defaultAngolaCallbackRegMoney = (String) request.getAttribute(UUTalkConfigKeys.ao_cb_register_money.name());
 	%>
 	<div class="container">
 		<div class="row">
@@ -81,6 +82,18 @@
 							%>
 						</tbody>
 					</table>
+				</div>
+				
+				<br />
+				<hr />
+				<div>
+					<h4>安哥拉回拨注册默认赠送金额</h4>
+					<div class="input-append float-left">
+						<input id="angola_callback_default_register_money_ipt" class="span2" type="text"
+							value="<%=defaultAngolaCallbackRegMoney %>" pattern="(\d+\.\d{2})|(\d+)" />
+						<button type="button" class="btn" id="edit_angola_callback_reg_money_btn">保存</button>
+					</div>
+					<span class="help-inline" id="angola_callback_reg_money_edit_info"></span>
 				</div>
 			</div>
 		</div>
@@ -289,6 +302,39 @@
 		
 		$("#start_date_ipt").blur(function() {
 			$("#end_date_ipt").attr("onfocus", "WdatePicker({dateFmt:'yyyy-MM-dd', minDate:(document.getElementById('start_date_ipt')).value})");
+		});
+		
+		$("#edit_angola_callback_reg_money_btn").click(function() {
+			var money = $("#angola_callback_default_register_money_ipt").val();
+			$("#angola_callback_reg_money_edit_info").html("");
+			if (money == null || money == "") {
+				$("#angola_callback_reg_money_edit_info").html("请输入金额！");
+				return false;
+			}
+
+			$.ajax({
+				type : "post",
+				url : "/angola/admin/registermanage/editAngolaCallbackRegisterMoney",
+				dataType : "json",
+				data : {
+					"money" : money
+				},
+				success : function(data, textStatus, jqxhr) {
+					$("#angola_callback_reg_money_edit_info").html("金额修改成功！");
+				},
+				error : function(jqXHR, textStatus) {
+					if (jqXHR.status == 406) {
+						$("#angola_callback_reg_money_edit_info").html(
+								"请输入正确的金额(格式:0.00)");
+					} else if (jqXHR.status == 401) {
+						location = "/angola/admin/registermanage";
+					} else {
+						$("#angola_callback_reg_money_edit_info").html(
+								"系统内部错误（STATUS CODE: " + jqXHR.status
+										+ ")");
+					}
+				}
+			});
 		});
 	</script>
 </body>

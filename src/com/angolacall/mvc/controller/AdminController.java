@@ -235,6 +235,7 @@ public class AdminController {
 				ucm.getDefaultRegisterMoney());
 		view.addObject("register_activity", ContextLoader
 				.getRegisterActivityDao().getRegisterActivity());
+		view.addObject(UUTalkConfigKeys.ao_cb_register_money.name(), ucm.getAngolaCallbackVersionRegisterMoney());
 		return view;
 	}
 
@@ -269,6 +270,16 @@ public class AdminController {
 		if (ValidatePattern.isValidMoney(giftMoney)) {
 			ContextLoader.getRegisterActivityDao().editActivity(
 					Integer.parseInt(id), startDate, endDate, giftMoney);
+		} else {
+			response.sendError(HttpServletResponse.SC_NOT_ACCEPTABLE);
+		}
+	}
+	
+	@RequestMapping(value = "/registermanage/editAngolaCallbackRegisterMoney", method = RequestMethod.POST)
+	public void editAngolaCallbackRegisterMoney(HttpServletResponse response,
+			@RequestParam String money) throws IOException {
+		if (ValidatePattern.isValidMoney(money)) {
+			ucm.setAngolaCallbackVersionRegisterMoney(money);
 		} else {
 			response.sendError(HttpServletResponse.SC_NOT_ACCEPTABLE);
 		}

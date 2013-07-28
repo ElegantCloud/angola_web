@@ -67,6 +67,9 @@
 		<property name="qqShareFromUrl">
 		    <value>${qq_share_from_url}</value>
 		</property>
+		<property name="aocbRegCountryCode">
+		    <value>${aocb_reg_country_code}</value>
+		</property>
 		
 	</bean>
 	

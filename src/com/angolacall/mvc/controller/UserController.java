@@ -689,10 +689,16 @@ public class UserController extends ExceptionController {
 		}
 
 		if ("0".equals(result)) {
-			Double money = ContextLoader.getUUTalkConfigManager()
-					.getRegisterGivenMoney();
-			if (money != null && money > 0) {
-				userDao.setFrozenMoney(countryCode, userName, money);
+			if (countryCode.equals(config.getAocbRegCountryCode())) {
+				vosClient.deposite(countryCode + userName, Double
+						.parseDouble(ContextLoader.getUUTalkConfigManager()
+								.getAngolaCallbackVersionRegisterMoney()));
+			} else {
+				Double money = ContextLoader.getUUTalkConfigManager()
+						.getRegisterGivenMoney();
+				if (money != null && money > 0) {
+					userDao.setFrozenMoney(countryCode, userName, money);
+				}
 			}
 		}
 

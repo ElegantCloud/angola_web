@@ -27,7 +27,8 @@ public class Configuration {
 	private String qqAppId;
 	private String qqShareSite;
 	private String qqShareFromUrl;
-
+	private String aocbRegCountryCode;
+	
 	public String getSuite0Id() {
 		return this.suite0Id;
 	}
@@ -186,6 +187,14 @@ public class Configuration {
 
 	public void setQqShareFromUrl(String qqShareFromUrl) {
 		this.qqShareFromUrl = qqShareFromUrl;
+	}
+
+	public String getAocbRegCountryCode() {
+		return aocbRegCountryCode;
+	}
+
+	public void setAocbRegCountryCode(String aocbRegCountryCode) {
+		this.aocbRegCountryCode = aocbRegCountryCode;
 	}
 
 }
