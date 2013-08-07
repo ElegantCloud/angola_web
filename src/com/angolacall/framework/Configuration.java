@@ -28,6 +28,7 @@ public class Configuration {
 	private String qqShareSite;
 	private String qqShareFromUrl;
 	private String aocbRegCountryCode;
+	private String aocbDefaultSuiteId;
 	
 	public String getSuite0Id() {
 		return this.suite0Id;
@@ -195,6 +196,14 @@ public class Configuration {
 
 	public void setAocbRegCountryCode(String aocbRegCountryCode) {
 		this.aocbRegCountryCode = aocbRegCountryCode;
+	}
+
+	public String getAocbDefaultSuiteId() {
+		return aocbDefaultSuiteId;
+	}
+
+	public void setAocbDefaultSuiteId(String aocbDefaultSuiteId) {
+		this.aocbDefaultSuiteId = aocbDefaultSuiteId;
 	}
 
 }

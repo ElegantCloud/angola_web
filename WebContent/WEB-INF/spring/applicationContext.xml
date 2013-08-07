@@ -70,6 +70,9 @@
 		<property name="aocbRegCountryCode">
 		    <value>${aocb_reg_country_code}</value>
 		</property>
+		<property name="aocbDefaultSuiteId">
+		    <value>${vos_aocb_default_suite_id}</value>
+		</property>
 		
 	</bean>
 	

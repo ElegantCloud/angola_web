@@ -517,7 +517,7 @@ public class UserController extends ExceptionController {
 		response.getWriter().print(jsonUser.toString());
 	}
 
-	private String addUserToVOS(String fullUserName, String vosPhoneNumber,
+	private String addUserToVOS(String fullUserName, String recognizeCode, String vosPhoneNumber,
 			String vosPhonePwd) {
 		// create new account in VOS
 		VOSHttpResponse addAccountResp = vosClient.addAccount(fullUserName);
@@ -547,11 +547,16 @@ public class UserController extends ExceptionController {
 		}
 
 		// add suite to account
+		String suiteId = config.getSuite0Id();
+		if (recognizeCode != null && recognizeCode.equals(config.getAocbRegCountryCode())) {
+			suiteId = config.getAocbDefaultSuiteId();
+		}
+		
 		VOSHttpResponse addSuiteResp = vosClient.addSuiteToAccount(
-				fullUserName, config.getSuite0Id());
+				fullUserName, suiteId);
 		if (addSuiteResp.getHttpStatusCode() != 200
 				|| !addSuiteResp.isOperationSuccess()) {
-			log.error("\nCannot add VOS suite <" + config.getSuite0Id()
+			log.error("\nCannot add VOS suite <" + suiteId
 					+ "> for user : " + fullUserName + "\nVOS Http Response : "
 					+ addSuiteResp.getHttpStatusCode() + "\nVOS Status Code : "
 					+ addSuiteResp.getVOSStatusCode() + "\nVOS Response Info ："
@@ -666,7 +671,7 @@ public class UserController extends ExceptionController {
 				userName);
 		Long vosPhoneNumber = (Long) vosPhoneInfoMap.get("vosphone");
 		String vosPhonePwd = (String) vosPhoneInfoMap.get("vosphone_pwd");
-		result = addUserToVOS(countryCode + userName,
+		result = addUserToVOS(countryCode + userName, countryCode,
 				vosPhoneNumber.toString(), vosPhonePwd);
 
 		if ("0".equals(result)) {
